@@ -72,7 +72,7 @@ public final class Toast {
 		new Toast(icon, message, style).start(player);
 	}
 
-	public static enum Style {
+	public enum Style {
 		GOAL,
 		TASK,
 		CHALLENGE
