@@ -12,14 +12,16 @@ public final class Toast {
 	private final String icon;
 	private final String message;
 	private final Style style;
+	private final boolean glint;
 	private final int customModelData;
 
-	private Toast(String icon, int customModelData, String message, Style style) {
+	private Toast(String icon, int customModelData, boolean glint, String message, Style style) {
 		this.key = new NamespacedKey(BeautifulPlugin.getPlugin(), UUID.randomUUID().toString());
 		this.icon = icon;
 		this.message = message;
 		this.style = style;
 		this.customModelData = customModelData;
+		this.glint = glint;
 	}
 
 	private void start(Player player) {
@@ -41,7 +43,10 @@ public final class Toast {
 				"    \"display\": {\n" +
 				"        \"icon\": {\n" +
 				"            \"id\": \"minecraft:" + icon + "\",\n" +
-				"            \"components\": {\"minecraft:custom_model_data\": " + customModelData + "}\n" +
+				"            \"components\": {" +
+				"			 \"minecraft:custom_model_data\": " + customModelData + ",\n" +
+				"            \"minecraft:enchantment_glint_override\": " + glint +
+				"			 }\n" +
 				"        },\n" +
 				"        \"title\": {\n" +
 				"            \"text\": \"" + message.replace("|", "\n") + "\"\n" +
@@ -71,8 +76,8 @@ public final class Toast {
 		player.getAdvancementProgress(Bukkit.getAdvancement(key)).revokeCriteria("trigger");
 	}
 
-	public static void displayTo(Player player, String icon, int customModelData, String message, Style style) {
-		new Toast(icon, customModelData, message, style).start(player);
+	public static void displayTo(Player player, String icon, int customModelData, boolean glint, String message, Style style) {
+		new Toast(icon, customModelData, glint, message, style).start(player);
 	}
 
 	public enum Style {
